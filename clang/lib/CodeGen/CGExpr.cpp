@@ -3072,6 +3072,11 @@ static LValue EmitGlobalVarDeclLValue(CodeGenFunction &CGF,
 
   llvm::Value *V = CGF.CGM.GetAddrOfGlobalVar(VD);
 
+  if (VD->hasAttr<OMPIteratorAttr>()) {
+  llvm::GlobalVariable *Var = llvm::dyn_cast<llvm::GlobalVariable>(V);
+  Var->setInitializer(CGF.CGM.EmitNullConstant(E->getType()));
+  }
+
   if (VD->getTLSKind() != VarDecl::TLS_None)
     V = CGF.Builder.CreateThreadLocalAddress(V);
 
