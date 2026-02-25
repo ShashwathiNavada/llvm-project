@@ -1,4 +1,4 @@
-! RUN: flang %s
+! RUN: %python %S/test_errors.py %s %flang_fc1
 
 Module m1
   external::sub
