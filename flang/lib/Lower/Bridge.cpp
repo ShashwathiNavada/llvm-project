@@ -491,7 +491,8 @@ public:
 
     // - Declare all functions that have definitions so that definition
     //   signatures prevail over call site signatures.
-    // - Module variables are lowered once all the function declarations are available.
+    // - Module variables are lowered once all the function declarations are
+    // available.
     bool hasMainProgram = false;
     const Fortran::semantics::Symbol *globalOmpRequiresSymbol = nullptr;
     createBuilderOutsideOfFuncOpAndDo([&]() {
