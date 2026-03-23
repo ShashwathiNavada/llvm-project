@@ -1,4 +1,4 @@
-! RUN: bbc -emit-hlfir -o - %s | FileCheck %s
+! RUN: %flang_fc1 -emit-hlfir -o - %s | FileCheck %s
 
 module m1
   external :: sub

@@ -4,7 +4,6 @@
 !RUN: %flang_fc1 -emit-hlfir -flang-experimental-hlfir -fopenmp %s -o - | FileCheck %s
 !RUN: bbc -emit-hlfir -fopenmp %s -o - | FileCheck %s
 
-! CHECK-LABEL: fir.global @_QMmEx : i32
 module m
   integer :: x
   !$omp threadprivate(x)
@@ -27,6 +26,8 @@ end
 ! CHECK:         fir.call @_QPbar(%[[VAL_3]]#0) {{.*}}: (!fir.ref<i32>) -> ()
 ! CHECK:         return
 ! CHECK:       }
+! CHECK-LABEL: fir.global @_QMmEx : i32
+
 
 module m2
   use m
