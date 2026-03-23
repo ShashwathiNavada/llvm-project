@@ -539,8 +539,7 @@ public:
                 [&](Fortran::lower::pft::CompilerDirectiveUnit &d) {},
                 [&](Fortran::lower::pft::OpenACCDirectiveUnit &d) {},
             },
-       if (auto m = u.getIf<(Fortran::lower::pft::ModuleLikeUnit>())
-          lowerModuleDeclScope(*m);
+            u);
       }
     });
 
