@@ -327,6 +327,11 @@ end module
 ! CHECK: fir.call @_FortranAAllocatableAllocate({{.*}}) fastmath<contract> {acc.declare_action = #acc.declare_action<postAlloc = @_QMacc_declare_post_action_statEx_acc_declare_post_alloc>} : (!fir.ref<!fir.box<none>>, !fir.ref<i64>, i1, !fir.box<none>, !fir.ref<i8>, i32, {{.*}}) -> i32
 ! CHECK: fir.if
 ! CHECK: fir.call @_FortranAAllocatableAllocate({{.*}}) fastmath<contract> {acc.declare_action = #acc.declare_action<postAlloc = @_QMacc_declare_post_action_statEy_acc_declare_post_alloc>} : (!fir.ref<!fir.box<none>>, !fir.ref<i64>, i1, !fir.box<none>, !fir.ref<i8>, i32, {{.*}}) -> i32
+! CHECK-LABEL: func.func @_QMacc_declare_post_action_statPinit_in_data(
+! CHECK: fir.call @_FortranAAllocatableAllocate({{.*}}) fastmath<contract> {acc.declare_action = #acc.declare_action<postAlloc = @_QMacc_declare_post_action_statEx_acc_declare_post_alloc>}
+! CHECK: fir.call @_FortranAAllocatableDeallocate({{.*}}) fastmath<contract> {acc.declare_action = #acc.declare_action<preDealloc = @_QMacc_declare_post_action_statEx_acc_declare_pre_dealloc, postDealloc = @_QMacc_declare_post_action_statEx_acc_declare_post_dealloc>}
+! CHECK-NOT: acc.terminator {acc.declare_action =
+
 
 ! CHECK-LABEL: acc.global_ctor @_QMacc_declare_allocatable_testEdata1_acc_ctor {
 ! CHECK:         %[[GLOBAL_ADDR:.*]] = fir.address_of(@_QMacc_declare_allocatable_testEdata1) {acc.declare = #acc.declare<dataClause =  acc_create>} : !fir.ref<!fir.box<!fir.heap<!fir.array<?xi32>>>>
@@ -446,12 +451,3 @@ contains
     !$acc end data
   end subroutine
 end module
-
-! CHECK-LABEL: func.func @_QMacc_declare_post_action_statPinit()
-! CHECK: fir.call @_FortranAAllocatableAllocate({{.*}}) fastmath<contract> {acc.declare_action = #acc.declare_action<postAlloc = @_QMacc_declare_post_action_statEx_acc_declare_post_alloc>} : (!fir.ref<!fir.box<none>>, !fir.ref<i64>, i1, !fir.box<none>, !fir.ref<i8>, i32, {{.*}}) -> i32
-! CHECK: fir.if
-! CHECK: fir.call @_FortranAAllocatableAllocate({{.*}}) fastmath<contract> {acc.declare_action = #acc.declare_action<postAlloc = @_QMacc_declare_post_action_statEy_acc_declare_post_alloc>} : (!fir.ref<!fir.box<none>>, !fir.ref<i64>, i1, !fir.box<none>, !fir.ref<i8>, i32, {{.*}}) -> i32
-! CHECK-LABEL: func.func @_QMacc_declare_post_action_statPinit_in_data(
-! CHECK: fir.call @_FortranAAllocatableAllocate({{.*}}) fastmath<contract> {acc.declare_action = #acc.declare_action<postAlloc = @_QMacc_declare_post_action_statEx_acc_declare_post_alloc>}
-! CHECK: fir.call @_FortranAAllocatableDeallocate({{.*}}) fastmath<contract> {acc.declare_action = #acc.declare_action<preDealloc = @_QMacc_declare_post_action_statEx_acc_declare_pre_dealloc, postDealloc = @_QMacc_declare_post_action_statEx_acc_declare_post_dealloc>}
-! CHECK-NOT: acc.terminator {acc.declare_action =
